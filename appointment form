@@ -1,0 +1,59 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
+
+export default function Booking() {
+  const [name, setName] = useState("");
+  const [clinic, setClinic] = useState("");
+  const [date, setDate] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    router.push({
+      pathname: "/confirm",
+      query: { name, clinic, date },
+    });
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-yellow-50">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full"
+      >
+        <h2 className="text-2xl font-bold mb-4 text-yellow-700">
+          Book Appointment
+        </h2>
+        <input
+          type="text"
+          placeholder="Your Name"
+          className="border p-2 w-full mb-3"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Preferred Clinic"
+          className="border p-2 w-full mb-3"
+          value={clinic}
+          onChange={(e) => setClinic(e.target.value)}
+          required
+        />
+        <input
+          type="date"
+          className="border p-2 w-full mb-3"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          required
+        />
+        <button
+          type="submit"
+          className="bg-yellow-600 text-white px-4 py-2 rounded w-full"
+        >
+          Confirm Booking
+        </button>
+      </form>
+    </div>
+  );
+}
